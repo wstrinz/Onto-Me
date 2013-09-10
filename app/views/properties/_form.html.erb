@@ -1,6 +1,6 @@
 <%= form_for @property, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label h(@property.base_url.gsub('http://',' ') + "\n" +  '/properties/'), :class => 'control-label' %>
+    <%= f.label :name, "#{@property.base_url}\n/properties/", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :name, :class => 'text_field' %>
     </div>
