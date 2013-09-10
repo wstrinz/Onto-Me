@@ -24,7 +24,7 @@ class Property < ActiveRecord::Base
   end
 
   def fullname
-    "#{base_url}/properties/#{self.name}"
+    "#{BASE_URL}/properties/#{self.name}"
   end
 
   def base_url
