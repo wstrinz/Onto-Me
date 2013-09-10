@@ -5,10 +5,10 @@ class Property < ActiveRecord::Base
   #   self.save
   # end
 
-  before_save do
-    self.rdf = escape_sub self.rdf
-    # self.save
-  end
+  # before_save do
+  #   self.rdf = escape_sub self.rdf
+  #   # self.save
+  # end
 
   def escape_sub(rdf)
     name = fullname
@@ -28,14 +28,15 @@ class Property < ActiveRecord::Base
   end
 
   def base_url
-    'http://localhost:3000'
+    # 'http://localhost:3000'
+    BASE_URL
   end
 
   def to_graph
-    str = "#{self.rdf}"
+    str = self.rdf
     gr = RDF::Repository.new
     
-    RDF::Turtle::Reader.new(str, prefixes: turtle_prefixes) do |reader|
+    RDF::Turtle::Reader.new(str) do |reader|
       reader.each_statement do |statement|
         gr << statement
       end
@@ -52,11 +53,12 @@ class Property < ActiveRecord::Base
   end
 
   def abbreviate
-    str = self.rdf.to_s
-    turtle_prefixes.each{|prefix,uri|
-      str.gsub!(/<#{uri}(\w.+)>/,"#{prefix}:\\1")
-    }
-    turtle_prefixes.map{|k,v| "@prefix #{k}: <#{v}>"}.join("\n") + "\n\n" + str
+    to_graph.to_ttl(prefixes: turtle_prefixes)
+    # str = self.rdf.to_s
+    # turtle_prefixes.each{|prefix,uri|
+    #   str.gsub!(/<#{uri}(\w.+)>/,"#{prefix}:\\1")
+    # }
+    # turtle_prefixes.map{|k,v| "@prefix #{k}: <#{v}>"}.join("\n") + "\n\n" + str
   end
 
   def predicate(predicate)
@@ -68,5 +70,17 @@ class Property < ActiveRecord::Base
     else
       results
     end
+  end
+
+  def to_n3
+    to_graph.to_ttl
+  end
+
+  def to_xml
+    to_graph.to_rdfxml
+  end
+
+  def to_json
+    to_graph.dump(:jsonld, :standard_prefixes => true)
   end
 end

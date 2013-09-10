@@ -7,23 +7,25 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:rdf) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th> Label </th>
+      <th> Description </th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @properties.each do |property| %>
       <tr>
-        <td><%= link_to property.id, property_path(property) %></td>
-        <td><%= property.name %></td>
-        <td><%= property.rdf %></td>
-        <td><%=l property.created_at %></td>
+        <td><%= link_to property.id, property_path(property.name) %></td>
+        <td><%= link_to property.name, property_path(property.name) %></td>
+        <td><%= property.predicate("rdfs:label") %></td>
+        <td><%= property.predicate("rdfs:description") %></td>
+        <td><%=l property.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_property_path(property), :class => 'btn btn-mini' %>
+                      edit_property_path(property.name), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      property_path(property),
+                      property_path(property.name),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>

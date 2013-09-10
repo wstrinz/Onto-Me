@@ -38,6 +38,8 @@ gem 'twitter-bootstrap-rails'
 
 gem 'rdf'
 gem 'rdf-turtle'
+gem 'rdf-rdfxml'
+gem 'json-ld'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

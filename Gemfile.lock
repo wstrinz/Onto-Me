@@ -51,6 +51,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
+    json-ld (1.0.5)
+      json (>= 1.7.5)
+      rdf (>= 1.0.7)
     less (2.4.0)
       commonjs (~> 0.2.7)
     less-rails (2.4.2)
@@ -61,8 +64,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
+    mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.8.0)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -83,9 +89,15 @@ GEM
     rake (10.1.0)
     rdf (1.0.8)
       addressable (>= 2.2)
+    rdf-rdfxml (1.0.2)
+      rdf (>= 1.0)
+      rdf-xsd (>= 1.0)
     rdf-turtle (1.0.9)
       ebnf (>= 0.3.0)
       rdf (>= 1.0.7)
+    rdf-xsd (1.0.2.1)
+      nokogiri (>= 1.5.0)
+      rdf (>= 0.3.4)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -138,9 +150,11 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
+  json-ld
   less-rails
   rails (= 4.0.0)
   rdf
+  rdf-rdfxml
   rdf-turtle
   sass-rails (~> 4.0.0)
   sdoc
