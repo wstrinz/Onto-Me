@@ -1,8 +1,7 @@
 class Property < ActiveRecord::Base
 
   # after_initialize do
-  #   self.rdf = escape_sub self.rdf
-  #   self.save
+  #   self.rdf = 
   # end
 
   before_save do
@@ -19,6 +18,7 @@ class Property < ActiveRecord::Base
        :foaf => "http://xmlns.com/foaf/0.1/",
        :rdfs => "http://www.w3.org/2000/01/rdf-schema#",
        :owl => "http://www.w3.org/2002/07/owl#",
+       :ontome_prop => "#{base_url}/properties/",
      }
   end
 

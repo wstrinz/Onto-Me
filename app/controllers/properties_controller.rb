@@ -24,6 +24,9 @@ class PropertiesController < ApplicationController
   # GET /properties/new
   def new
     @property = Property.new
+    @property.rdf = @property.turtle_prefixes.map{|k,v|
+      "@prefix #{k}: <#{v}> ."
+    }.join("\n") + "\n"
   end
 
   # GET /properties/1/edit
