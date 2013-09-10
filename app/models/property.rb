@@ -5,10 +5,9 @@ class Property < ActiveRecord::Base
   #   self.save
   # end
 
-  # before_save do
-  #   self.rdf = escape_sub self.rdf
-  #   # self.save
-  # end
+  before_save do
+    self.rdf = escape_sub self.rdf
+  end
 
   def escape_sub(rdf)
     name = fullname
