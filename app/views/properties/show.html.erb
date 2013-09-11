@@ -6,13 +6,17 @@
 <dl class="dl-horizontal">
   <dt><strong>Identifier:</strong></dt>
   <dd><%= link_to @property.fullname, @property.fullname %></dd>
-  <dt><strong>Label: </strong></dt>
-  <dd><%= @property.predicate('rdfs:label') %></dd>
-  <dt><strong>Description: </strong></dt>
-  <dd><%= @property.predicate('rdfs:description') %></dd>
+  <% if @property.predicate('rdfs:label').size > 0 %>
+    <dt><strong>Label: </strong></dt>
+    <dd><%= @property.predicate('rdfs:label') %></dd>
+  <% end %>
+  <% if @property.predicate('rdfs:description').size > 0 %>
+    <dt><strong>Description: </strong></dt>
+    <dd><%= @property.predicate('rdfs:description') %></dd>
+  <% end %>
   <% if @property.predicate('http://identifiers.org/terms#namespace').size > 0 %>
-  <dt><strong>Identifiers.org ID: </strong></dt>
-  <dd><%= addr = 'http://identifiers.org/' + @property.predicate('http://identifiers.org/terms#namespace'); link_to addr, addr %></dd>
+    <dt><strong>Identifiers.org ID: </strong></dt>
+    <dd><%= addr = 'http://identifiers.org/' + @property.predicate('http://identifiers.org/terms#namespace'); link_to addr, addr %></dd>
   <% end %>
   <br><br>
   <dt><strong>Parsed RDF:</strong></dt>
