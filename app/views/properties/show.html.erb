@@ -1,7 +1,7 @@
 <%- model_class = Property -%>
-<%# if @property.use_xslt %>
-    <%# raw @property.transform %>
-<%# else %>
+<% if @property.use_xslt %>
+    <% raw @property.transform %>
+<% else %>
 <div class="page-header">
   <h1><%=t '.title', :default => @property.name %></h1>
 </div>
@@ -29,7 +29,7 @@
   <dt><strong>Raw RDF: </strong></dt>
   <dd><pre><%= @property.rdf %></pre></dd>
 </dl>
-<%# end %>
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

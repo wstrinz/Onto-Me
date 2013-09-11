@@ -18,16 +18,21 @@ class PropertiesController < ApplicationController
   # GET /properties/1
   # GET /properties/1.json
   def show
+
+    xml_header = "<\?xml version=\"1.0\" encoding=\"UTF-8\" \?>\n<\?xml-stylesheet type=\"text/xsl\" href=\"#{@property.fullname}.xsl\" \?>"
+    the_xml =  @property.to_xml.to_s.split("\n")[1..-1]
     respond_to do |format|
       if @property.use_xslt?
-        format.html { render inline: "<%= raw @property.to_xml %>  <%= raw @property.transform %>" }
+        format.html { redirect_to property_path(@property, format: :xml)}
+        # format.html { render text: xml_header + "\n" + the_xml.join("\n"), mime_type: "text/xml"}
       else
         format.html
       end
       format.json { render json: @property.to_json }
       format.n3 { render text: @property.to_n3, mime_type: "text/rdf+n3" }
       format.ttl { render text: @property.to_n3, mime_type: "application/x-turtle" }
-      format.xml { render text: @property.to_xml, mime_type: "application/rdf+xml" }
+      format.xml { render text: xml_header + "\n" + the_xml.join("\n"), mime_type: "text/xml" }
+      format.xsl { render text: @property.xslt, mime_type: "text/xsl" }
     end
   end
 
