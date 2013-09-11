@@ -65,9 +65,9 @@ class Property < ActiveRecord::Base
     predicate = prefix_replace(predicate)
     results = RDF::Query.execute(to_graph){ pattern [RDF::URI(name), RDF::URI(predicate), :result] }.map(&:result)
     if results.size == 1
-      results.first
+      results.first.to_s
     else
-      results
+      results.map(&:to_s)
     end
   end
 

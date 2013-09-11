@@ -10,6 +10,10 @@
   <dd><%= @property.predicate('rdfs:label') %></dd>
   <dt><strong>Description: </strong></dt>
   <dd><%= @property.predicate('rdfs:description') %></dd>
+  <% if @property.predicate('http://identifiers.org/terms#namespace').size > 0 %>
+  <dt><strong>Identifiers.org ID: </strong></dt>
+  <dd><%= addr = 'http://identifiers.org/' + @property.predicate('http://identifiers.org/terms#namespace'); link_to addr, addr %></dd>
+  <% end %>
   <br><br>
   <dt><strong>Parsed RDF:</strong></dt>
   <dd><pre><%= @property.abbreviate %></pre></dd>
