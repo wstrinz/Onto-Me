@@ -10,8 +10,8 @@ class PropertiesController < ApplicationController
       format.html 
       format.json { render json: Property.to_json }
       format.n3 { render text: Property.to_n3, mime_type: "text/rdf+n3" }
-      format.ttl { render text: Property.to_n3, mime_type: "text/rdf+n3" }
-      format.xml { render text: Property.to_xml, mime_type: "text/rdf+xml" }
+      format.ttl { render text: Property.to_n3, mime_type: "application/x-turtle" }
+      format.xml { render text: Property.to_xml, mime_type: "application/rdf+xml" }
     end
   end
 
@@ -19,11 +19,15 @@ class PropertiesController < ApplicationController
   # GET /properties/1.json
   def show
     respond_to do |format|
-      format.html 
+      if @property.use_xslt?
+        format.html { render inline: "<%= raw @property.to_xml %>  <%= raw @property.transform %>" }
+      else
+        format.html
+      end
       format.json { render json: @property.to_json }
       format.n3 { render text: @property.to_n3, mime_type: "text/rdf+n3" }
-      format.ttl { render text: @property.to_n3, mime_type: "text/rdf+n3" }
-      format.xml { render text: @property.to_xml, mime_type: "text/rdf+xml" }
+      format.ttl { render text: @property.to_n3, mime_type: "application/x-turtle" }
+      format.xml { render text: @property.to_xml, mime_type: "application/rdf+xml" }
     end
   end
 
@@ -91,6 +95,6 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.require(:property).permit(:name, :rdf)
+      params.require(:property).permit(:name, :rdf, :xslt, :use_xslt)
     end
 end

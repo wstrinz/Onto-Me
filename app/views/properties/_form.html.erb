@@ -11,6 +11,18 @@
       <%= f.text_area :rdf, :class => 'field span10', rows: 20 %>
     </div>
   </div>
+  <div class="control-group">
+    <%= f.label :use_xslt, "Use XSLT?", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :use_xslt%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :xslt, "XSLT", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :xslt, :class => 'field span10', rows: 20 %>
+    </div>
+  </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

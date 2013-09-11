@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910180554) do
+ActiveRecord::Schema.define(version: 20130911150440) do
 
   create_table "properties", force: true do |t|
     t.string   "name"
     t.text     "rdf"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "use_xslt"
+    t.string   "xslt"
   end
 
 end

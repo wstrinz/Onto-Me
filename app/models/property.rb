@@ -23,6 +23,41 @@ class Property < ActiveRecord::Base
      }
   end
 
+  def transform
+#     template = <<-EOF
+# <xsl:stylesheet version="1.0"
+#       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+#       xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+#       xmlns:dc="http://purl.org/dc/elements/1.1/"
+#       xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+#       xmlns:owl="http://www.w3.org/2002/07/owl#"
+#       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+#   <xsl:template match="/">
+#     <html>
+#       <body>
+#         <h2>
+#           <xsl:value-of select="//rdfs:label" />
+#         </h2>
+#         <xsl:value-of select="//rdfs:description" />
+#         <xsl:for-each select="//rdfs:description">
+#         <br />
+#           <xsl:text>Broader: </xsl:text>
+#           <xsl:value-of select="@rdf:resource"/>
+#           <br />
+#         </xsl:for-each>
+#       </body>
+#     </html>
+#   </xsl:template>
+# </xsl:stylesheet>
+#     EOF
+
+    doc   = Nokogiri::XML(to_xml)
+    xslt  = Nokogiri::XSLT(self.xslt)
+
+    xslt.transform(doc)
+  end
+
   def fullname
     "#{BASE_URL}/properties/#{self.name}"
   end
@@ -84,6 +119,10 @@ class Property < ActiveRecord::Base
     to_graph.dump(:jsonld, :standard_prefixes => true)
   end
 
+  def to_rdfa
+    to_graph.to_rdfa
+  end
+
   def self.dump
     big_graph = RDF::Repository.new
     Property.all.each{|prop|
@@ -99,6 +138,10 @@ class Property < ActiveRecord::Base
 
   def self.to_xml
     dump.to_rdfxml
+  end
+
+  def self.to_rdfa
+    dump.to_rdfa
   end
 
   def self.to_json

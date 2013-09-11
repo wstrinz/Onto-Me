@@ -8,3 +8,4 @@ end
 Mime::Type.register "text/rdf+n3" , :n3
 Mime::Type.register "text/rdf+n3" , :ttl
 Mime::Type.register "text/rdf+xml" , :rdfxml
+# Mime::Type.register "text/xsl" , :xslt

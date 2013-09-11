@@ -152,6 +152,7 @@ DEPENDENCIES
   jquery-rails
   json-ld
   less-rails
+  nokogiri
   rails (= 4.0.0)
   rdf
   rdf-rdfxml

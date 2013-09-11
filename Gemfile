@@ -40,6 +40,9 @@ gem 'rdf'
 gem 'rdf-turtle'
 gem 'rdf-rdfxml'
 gem 'json-ld'
+
+gem 'nokogiri'
+# gem 'rdf-rdfa'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
