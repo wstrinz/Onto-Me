@@ -5,19 +5,25 @@ class PropertiesController < ApplicationController
   # GET /properties.json
   def index
     @properties = Property.all
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: Property.to_json }
+      format.n3 { render text: Property.to_n3, mime_type: "text/rdf+n3" }
+      format.ttl { render text: Property.to_n3, mime_type: "text/rdf+n3" }
+      format.xml { render text: Property.to_xml, mime_type: "text/rdf+xml" }
+    end
   end
 
   # GET /properties/1
   # GET /properties/1.json
   def show
     respond_to do |format|
-      if @property.save
-        format.html 
-        format.json { render json: @property.to_json }
-        format.n3 { render text: @property.to_n3, mime_type: "text/rdf+n3" }
-        format.ttl { render text: @property.to_n3, mime_type: "text/rdf+n3" }
-        format.xml { render text: @property.to_xml, mime_type: "text/rdf+xml" }
-      end
+      format.html 
+      format.json { render json: @property.to_json }
+      format.n3 { render text: @property.to_n3, mime_type: "text/rdf+n3" }
+      format.ttl { render text: @property.to_n3, mime_type: "text/rdf+n3" }
+      format.xml { render text: @property.to_xml, mime_type: "text/rdf+xml" }
     end
   end
 

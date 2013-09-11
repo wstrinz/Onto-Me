@@ -83,4 +83,25 @@ class Property < ActiveRecord::Base
   def to_json
     to_graph.dump(:jsonld, :standard_prefixes => true)
   end
+
+  def self.dump
+    big_graph = RDF::Repository.new
+    Property.all.each{|prop|
+      reader = RDF::Turtle::Reader.new(prop.rdf)
+      big_graph << reader
+    }
+    big_graph
+  end
+
+  def self.to_n3
+    dump.to_ttl
+  end
+
+  def self.to_xml
+    dump.to_rdfxml
+  end
+
+  def self.to_json
+    dump.dump(:jsonld, :standard_prefixes => true)
+  end
 end
